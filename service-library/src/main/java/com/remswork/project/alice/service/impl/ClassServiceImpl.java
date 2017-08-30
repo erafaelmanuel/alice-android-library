@@ -715,7 +715,7 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Class updateClassId(final long id, final Class newClass,
+    public Class updateClassById(final long id, final Class newClass,
                                  final long teacherId, final long subjectId,
                                  final long sectionId) throws ClassException {
         try{
