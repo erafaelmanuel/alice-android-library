@@ -1,7 +1,6 @@
 package com.remswork.project.alice.service.impl;
 
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -106,6 +105,147 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
+    public Subject getSubjectByClassAndTeacherId(final long classId, final long teacherId)
+            throws SubjectException {
+        try {
+            return new AsyncTask<String, Subject, Subject>() {
+                @Override
+                protected Subject doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("/")
+                                .concat("0")
+                                .concat("?classId=")
+                                .concat(String.valueOf(classId))
+                                .concat("&teacherId=")
+                                .concat(String.valueOf(teacherId));
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            return gson.fromJson(jsonData, Subject.class);
+                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Subject");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return null;
+                        } else
+                            throw new SubjectException("Server Error");
+
+                    } catch (SubjectException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Subject getSubjectByScheduleId(final long scheduleId) throws SubjectException {
+        try {
+            return new AsyncTask<String, Subject, Subject>() {
+                @Override
+                protected Subject doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("/")
+                                .concat("0")
+                                .concat("?scheduleId=")
+                                .concat(String.valueOf(scheduleId));
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            return gson.fromJson(jsonData, Subject.class);
+                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Subject");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return null;
+                        } else
+                            throw new SubjectException("Server Error");
+
+                    } catch (SubjectException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public List<Subject> getSubjectList() throws SubjectException {
         final List<Subject> subjectList = new ArrayList<>();
         try {
@@ -119,6 +259,85 @@ public class SubjectServiceImpl implements SubjectService {
                                 .concat(baseUri)
                                 .concat("/")
                                 .concat(payload);
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
+                                subjectList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Subject.class));
+                            }
+
+                            return subjectList;
+                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Subject");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return subjectList;
+                        } else
+                            throw new SubjectException("Server Error");
+
+                    } catch (SubjectException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Subject> getSubjectListByTeacherId(final long teacherId) throws SubjectException {
+        final List<Subject> subjectList = new ArrayList<>();
+        try {
+            return new AsyncTask<String, List<Subject>, List<Subject>>() {
+                @Override
+                protected List<Subject> doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("/")
+                                .concat("1")
+                                .concat("?teacherId=")
+                                .concat(String.valueOf(teacherId));
                         URL url = new URL(link);
                         Gson gson = new Gson();
                         HttpURLConnection httpURLConnection =
