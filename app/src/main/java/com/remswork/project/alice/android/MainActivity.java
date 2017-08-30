@@ -6,10 +6,12 @@ import android.util.Log;
 
 import com.remswork.project.alice.exception.SectionException;
 import com.remswork.project.alice.exception.StudentException;
+import com.remswork.project.alice.exception.SubjectException;
 import com.remswork.project.alice.model.Section;
 import com.remswork.project.alice.model.Student;
 import com.remswork.project.alice.service.impl.SectionServiceImpl;
 import com.remswork.project.alice.service.impl.StudentServiceImpl;
+import com.remswork.project.alice.service.impl.SubjectServiceImpl;
 
 import java.util.List;
 
@@ -42,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
 //            sectionService.deleteSectionById(28);
             studentService.addStudent(newStud, 12);
 
-        } catch (SectionException | StudentException e) {
+            new SubjectServiceImpl().addSubject(new com.remswork.project.alice.model.Subject("English", "adad", "adad", 1));
+
+        } catch (SectionException | StudentException | SubjectException e) {
             e.printStackTrace();
         }
     }

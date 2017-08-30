@@ -29,13 +29,9 @@ public class SectionServiceImpl implements SectionService {
     private String domain = "http://alice-rafaelmanuel.rhcloud.com";
     private String baseUri = "api";
     private String payload = "section";
-    @NonNull
-    private String links = "";
 
     public SectionServiceImpl() {
         super();
-
-
     }
 
     public SectionServiceImpl(final String domain) {

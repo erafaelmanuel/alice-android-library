@@ -5,10 +5,10 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.remswork.project.alice.exception.SectionException;
-import com.remswork.project.alice.model.Section;
+import com.remswork.project.alice.exception.SubjectException;
+import com.remswork.project.alice.model.Subject;
 import com.remswork.project.alice.model.support.Message;
-import com.remswork.project.alice.service.SectionService;
+import com.remswork.project.alice.service.SubjectService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,18 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class SubjectServiceImpl implements SectionService {
+public class SubjectServiceImpl implements SubjectService {
 
     private String domain = "http://alice-rafaelmanuel.rhcloud.com";
     private String baseUri = "api";
-    private String payload = "section";
-    @NonNull
-    private String links = "";
+    private String payload = "subject";
 
     public SubjectServiceImpl() {
         super();
-
-
     }
 
     public SubjectServiceImpl(final String domain) {
@@ -43,11 +39,11 @@ public class SubjectServiceImpl implements SectionService {
     }
 
     @Override
-    public Section getSectionById(final long id) throws SectionException {
+    public Subject getSubjectById(final long id) throws SubjectException {
         try {
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Subject, Subject>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Subject doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -73,7 +69,7 @@ public class SubjectServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Subject.class);
                         } else if(httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -83,15 +79,15 @@ public class SubjectServiceImpl implements SectionService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Subject");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         } else
-                            throw new SectionException("Server Error");
+                            throw new SubjectException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (SubjectException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -110,12 +106,12 @@ public class SubjectServiceImpl implements SectionService {
     }
 
     @Override
-    public List<Section> getSectionList() throws SectionException {
-        final List<Section> sectionList = new ArrayList<>();
+    public List<Subject> getSubjectList() throws SubjectException {
+        final List<Subject> subjectList = new ArrayList<>();
         try {
-            return new AsyncTask<String, List<Section>, List<Section>>() {
+            return new AsyncTask<String, List<Subject>, List<Subject>>() {
                 @Override
-                protected List<Section> doInBackground(String... args) {
+                protected List<Subject> doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -141,11 +137,11 @@ public class SubjectServiceImpl implements SectionService {
                             }
                             JSONArray jsonArray = new JSONArray(jsonData);
                             for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
-                                sectionList.add(gson.fromJson(
-                                        jsonArray.get(ctr).toString(), Section.class));
+                                subjectList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Subject.class));
                             }
 
-                            return sectionList;
+                            return subjectList;
                         } else if(httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -155,15 +151,15 @@ public class SubjectServiceImpl implements SectionService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Subject");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return sectionList;
+                            return subjectList;
                         } else
-                            throw new SectionException("Server Error");
+                            throw new SubjectException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (SubjectException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -185,21 +181,19 @@ public class SubjectServiceImpl implements SectionService {
     }
 
     @Override
-    public Section addSection(final Section section, final long departmentId)
-            throws SectionException {
+    public Subject addSubject(final Subject subject)
+            throws SubjectException {
         try{
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Subject, Subject>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Subject doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
                                 .concat("/")
                                 .concat(baseUri)
                                 .concat("/")
-                                .concat(payload)
-                                .concat("?departmentId=")
-                                .concat(String.valueOf(departmentId));
+                                .concat(payload);
                         Gson gson = new Gson();
                         URL url = new URL(link);
                         HttpURLConnection httpURLConnection =
@@ -213,7 +207,7 @@ public class SubjectServiceImpl implements SectionService {
                         OutputStream os = httpURLConnection.getOutputStream();
                         BufferedWriter writer =
                                 new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(section));
+                        writer.write(gson.toJson(subject));
                         writer.flush();
                         writer.close();
                         httpURLConnection.connect();
@@ -225,7 +219,7 @@ public class SubjectServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Subject.class);
                         } else if(httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -234,15 +228,15 @@ public class SubjectServiceImpl implements SectionService {
                                 jsonData += (char) data;
                             }
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Subject");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         }else
-                            throw new SectionException("Server Error");
+                            throw new SubjectException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (SubjectException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -261,12 +255,11 @@ public class SubjectServiceImpl implements SectionService {
     }
 
     @Override
-    public Section updateSectionById(final long id, final Section newSection,
-                                     final long departmentId) throws SectionException {
+    public Subject updateSubjectById(final long id, final Subject newSubject) throws SubjectException {
         try{
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Subject, Subject>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Subject doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -276,8 +269,7 @@ public class SubjectServiceImpl implements SectionService {
                                 .concat(payload)
                                 .concat("/")
                                 .concat(String.valueOf(id))
-                                .concat("?departmentId=")
-                                .concat(String.valueOf(departmentId));
+                                .concat("?departmentId=");
                         Gson gson = new Gson();
                         URL url = new URL(link);
                         HttpURLConnection httpURLConnection =
@@ -291,7 +283,7 @@ public class SubjectServiceImpl implements SectionService {
                         OutputStream os = httpURLConnection.getOutputStream();
                         BufferedWriter writer =
                                 new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(newSection));
+                        writer.write(gson.toJson(newSubject));
                         writer.flush();
                         writer.close();
                         httpURLConnection.connect();
@@ -303,7 +295,7 @@ public class SubjectServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Subject.class);
                         } else if(httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -312,15 +304,15 @@ public class SubjectServiceImpl implements SectionService {
                                 jsonData += (char) data;
                             }
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Subject");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         }else
-                            throw new SectionException("Server Error");
+                            throw new SubjectException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (SubjectException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -339,11 +331,11 @@ public class SubjectServiceImpl implements SectionService {
     }
 
     @Override
-    public Section deleteSectionById(final long id) throws SectionException {
+    public Subject deleteSubjectById(final long id) throws SubjectException {
         try {
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Subject, Subject>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Subject doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -369,7 +361,7 @@ public class SubjectServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Subject.class);
                         } else if(httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -379,15 +371,15 @@ public class SubjectServiceImpl implements SectionService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Subject");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         } else
-                            throw new SectionException("Server Error");
+                            throw new SubjectException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (SubjectException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
