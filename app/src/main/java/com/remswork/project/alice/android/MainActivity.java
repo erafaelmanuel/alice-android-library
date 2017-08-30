@@ -2,23 +2,6 @@ package com.remswork.project.alice.android;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import com.remswork.project.alice.exception.ClassException;
-import com.remswork.project.alice.exception.ScheduleException;
-import com.remswork.project.alice.exception.SectionException;
-import com.remswork.project.alice.exception.StudentException;
-import com.remswork.project.alice.exception.SubjectException;
-import com.remswork.project.alice.model.Schedule;
-import com.remswork.project.alice.model.Section;
-import com.remswork.project.alice.model.Student;
-import com.remswork.project.alice.service.impl.ClassServiceImpl;
-import com.remswork.project.alice.service.impl.ScheduleServiceImpl;
-import com.remswork.project.alice.service.impl.SectionServiceImpl;
-import com.remswork.project.alice.service.impl.StudentServiceImpl;
-import com.remswork.project.alice.service.impl.SubjectServiceImpl;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,35 +10,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SectionServiceImpl sectionService = new SectionServiceImpl();
-        StudentServiceImpl studentService = new StudentServiceImpl();
         try {
-//            //TEST SECTION
-//            Section newSec = new Section();
-//            newSec.setName("1-C");
-//            sectionService.updateSectionById(28, newSec, 11);
-//            sectionService.deleteSectionById(28);
-//
-//            Section section = sectionService.getSectionById(12);
-//            List<Section> sectionList = sectionService.getSectionList();
-//
-//
-//            Log.i("MyTAG", section.getName());
-//            Log.i("MyTAG", sectionList.size() + "");
-
-            //TEST SECTION
-            //Student newStud = new Student(12133L, "Trainer","101","Manuel","Male",15,"");
-//            sectionService.updateSectionById(28, newSec, 11);
-//            sectionService.deleteSectionById(28);
-            //studentService.addStudent(newStud, 12);
-
-            //new SubjectServiceImpl().addSubject(new com.remswork.project.alice.model.Subject("English", "adad", "adad", 1));
-
-            Schedule schedule = new ScheduleServiceImpl().addSchedule(new Schedule("Tuesday", "12:30 PM", "2 hrs 0 mins"));
-            Log.i("MyTAG", new ClassServiceImpl().deleteScheduleById(40, 46).getDay() + "");
-//        } catch (SectionException | StudentException | SubjectException | ClassException | ScheduleException e) {
-//            e.printStackTrace();
-//        }
 
         }catch (Exception e) {
 
