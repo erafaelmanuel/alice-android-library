@@ -4,10 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.remswork.project.alice.exception.SectionException;
-import com.remswork.project.alice.model.Section;
+import com.remswork.project.alice.exception.ScheduleException;
+import com.remswork.project.alice.model.Schedule;
 import com.remswork.project.alice.model.support.Message;
-import com.remswork.project.alice.service.SectionService;
+import com.remswork.project.alice.service.ScheduleService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,26 +23,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class SectionServiceImpl implements SectionService {
+public class ScheduleServiceImpl implements ScheduleService {
 
     private String domain = "http://alice-rafaelmanuel.rhcloud.com";
     private String baseUri = "api";
-    private String payload = "section";
+    private String payload = "schedule";
 
-    public SectionServiceImpl() {
+    public ScheduleServiceImpl() {
         super();
     }
 
-    public SectionServiceImpl(final String domain) {
+    public ScheduleServiceImpl(final String domain) {
         this.domain = domain;
     }
 
     @Override
-    public Section getSectionById(final long id) throws SectionException {
+    public Schedule getScheduleById(final long id) throws ScheduleException {
         try {
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Schedule, Schedule>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Schedule doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -68,7 +68,7 @@ public class SectionServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Schedule.class);
                         } else if(httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -78,15 +78,15 @@ public class SectionServiceImpl implements SectionService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Schedule");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         } else
-                            throw new SectionException("Server Error");
+                            throw new ScheduleException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (ScheduleException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -105,12 +105,12 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
-    public List<Section> getSectionList() throws SectionException {
-        final List<Section> sectionList = new ArrayList<>();
+    public List<Schedule> getScheduleList() throws ScheduleException {
+        final List<Schedule> scheduleList = new ArrayList<>();
         try {
-            return new AsyncTask<String, List<Section>, List<Section>>() {
+            return new AsyncTask<String, List<Schedule>, List<Schedule>>() {
                 @Override
-                protected List<Section> doInBackground(String... args) {
+                protected List<Schedule> doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -136,11 +136,11 @@ public class SectionServiceImpl implements SectionService {
                             }
                             JSONArray jsonArray = new JSONArray(jsonData);
                             for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
-                                sectionList.add(gson.fromJson(
-                                        jsonArray.get(ctr).toString(), Section.class));
+                                scheduleList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Schedule.class));
                             }
 
-                            return sectionList;
+                            return scheduleList;
                         } else if(httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -150,15 +150,15 @@ public class SectionServiceImpl implements SectionService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Schedule");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return sectionList;
+                            return scheduleList;
                         } else
-                            throw new SectionException("Server Error");
+                            throw new ScheduleException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (ScheduleException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -180,21 +180,19 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
-    public Section addSection(final Section section, final long departmentId)
-            throws SectionException {
+    public Schedule addSchedule(final Schedule schedule)
+            throws ScheduleException {
         try{
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Schedule, Schedule>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Schedule doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
                                 .concat("/")
                                 .concat(baseUri)
                                 .concat("/")
-                                .concat(payload)
-                                .concat("?departmentId=")
-                                .concat(String.valueOf(departmentId));
+                                .concat(payload);
                         Gson gson = new Gson();
                         URL url = new URL(link);
                         HttpURLConnection httpURLConnection =
@@ -208,7 +206,7 @@ public class SectionServiceImpl implements SectionService {
                         OutputStream os = httpURLConnection.getOutputStream();
                         BufferedWriter writer =
                                 new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(section));
+                        writer.write(gson.toJson(schedule));
                         writer.flush();
                         writer.close();
                         httpURLConnection.connect();
@@ -220,7 +218,7 @@ public class SectionServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Schedule.class);
                         } else if(httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -229,15 +227,15 @@ public class SectionServiceImpl implements SectionService {
                                 jsonData += (char) data;
                             }
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Schedule");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         }else
-                            throw new SectionException("Server Error");
+                            throw new ScheduleException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (ScheduleException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -256,12 +254,11 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
-    public Section updateSectionById(final long id, final Section newSection,
-                                     final long departmentId) throws SectionException {
+    public Schedule updateScheduleById(final long id, final Schedule newSchedule) throws ScheduleException {
         try{
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Schedule, Schedule>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Schedule doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -271,8 +268,7 @@ public class SectionServiceImpl implements SectionService {
                                 .concat(payload)
                                 .concat("/")
                                 .concat(String.valueOf(id))
-                                .concat("?departmentId=")
-                                .concat(String.valueOf(departmentId));
+                                .concat("?departmentId=");
                         Gson gson = new Gson();
                         URL url = new URL(link);
                         HttpURLConnection httpURLConnection =
@@ -286,7 +282,7 @@ public class SectionServiceImpl implements SectionService {
                         OutputStream os = httpURLConnection.getOutputStream();
                         BufferedWriter writer =
                                 new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(newSection));
+                        writer.write(gson.toJson(newSchedule));
                         writer.flush();
                         writer.close();
                         httpURLConnection.connect();
@@ -298,7 +294,7 @@ public class SectionServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Schedule.class);
                         } else if(httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -307,15 +303,15 @@ public class SectionServiceImpl implements SectionService {
                                 jsonData += (char) data;
                             }
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Schedule");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         }else
-                            throw new SectionException("Server Error");
+                            throw new ScheduleException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (ScheduleException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
@@ -334,11 +330,11 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
-    public Section deleteSectionById(final long id) throws SectionException {
+    public Schedule deleteScheduleById(final long id) throws ScheduleException {
         try {
-            return new AsyncTask<String, Section, Section>() {
+            return new AsyncTask<String, Schedule, Schedule>() {
                 @Override
-                protected Section doInBackground(String... args) {
+                protected Schedule doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -364,7 +360,7 @@ public class SectionServiceImpl implements SectionService {
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Section.class);
+                            return gson.fromJson(jsonData, Schedule.class);
                         } else if(httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -374,15 +370,15 @@ public class SectionServiceImpl implements SectionService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Section");
+                            Log.i("ServiceTAG", "Service : Schedule");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
                         } else
-                            throw new SectionException("Server Error");
+                            throw new ScheduleException("Server Error");
 
-                    } catch (SectionException e) {
+                    } catch (ScheduleException e) {
                         e.printStackTrace();
                         return null;
                     } catch (IOException e) {
