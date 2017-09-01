@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import static android.text.TextUtils.concat;
-
 public class ScheduleServiceImpl implements ScheduleService {
 
     private String domain = "http://alice-rafaelmanuel.rhcloud.com";

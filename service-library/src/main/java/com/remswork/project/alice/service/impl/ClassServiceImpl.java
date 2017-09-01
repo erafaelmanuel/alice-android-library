@@ -184,18 +184,234 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<Class> getClassListByTeacherId(long l) throws ClassException {
-        return null;
+    public List<Class> getClassListByTeacherId(final long teacherId) throws ClassException {
+        final List<Class> _classList = new ArrayList<>();
+        try {
+            return new AsyncTask<String, List<Class>, List<Class>>() {
+                @Override
+                protected List<Class> doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("?teacherId=")
+                                .concat(String.valueOf(teacherId));
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
+                                _classList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Class.class));
+                            }
+
+                            return _classList;
+                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Class");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return _classList;
+                        } else
+                            throw new ClassException("Server Error");
+
+                    } catch (ClassException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public List<Class> getClassListByStudentId(long l) throws ClassException {
-        return null;
+    public List<Class> getClassListByStudentId(final long studentId) throws ClassException {
+        final List<Class> _classList = new ArrayList<>();
+        try {
+            return new AsyncTask<String, List<Class>, List<Class>>() {
+                @Override
+                protected List<Class> doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("?studentId=")
+                                .concat(String.valueOf(studentId));
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
+                                _classList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Class.class));
+                            }
+
+                            return _classList;
+                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Class");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return _classList;
+                        } else
+                            throw new ClassException("Server Error");
+
+                    } catch (ClassException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public List<Class> getClassListBySubjectId(long l) throws ClassException {
-        return null;
+    public List<Class> getClassListBySubjectId(final long subjectId) throws ClassException {
+        final List<Class> _classList = new ArrayList<>();
+        try {
+            return new AsyncTask<String, List<Class>, List<Class>>() {
+                @Override
+                protected List<Class> doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("?subjectId=")
+                                .concat(String.valueOf(subjectId));
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
+                                _classList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Class.class));
+                            }
+
+                            return _classList;
+                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Class");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return _classList;
+                        } else
+                            throw new ClassException("Server Error");
+
+                    } catch (ClassException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
