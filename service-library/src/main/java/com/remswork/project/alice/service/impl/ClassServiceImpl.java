@@ -184,6 +184,21 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
+    public List<Class> getClassListByTeacherId(long l) throws ClassException {
+        return null;
+    }
+
+    @Override
+    public List<Class> getClassListByStudentId(long l) throws ClassException {
+        return null;
+    }
+
+    @Override
+    public List<Class> getClassListBySubjectId(long l) throws ClassException {
+        return null;
+    }
+
+    @Override
     public Schedule getScheduleById(final long classId, final long id) throws ClassException {
         try {
             return new AsyncTask<String, Schedule, Schedule>() {

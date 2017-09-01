@@ -400,6 +400,11 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
+    public List<Subject> getSubjectListByStudentId(long l) throws SubjectException {
+        return null;
+    }
+
+    @Override
     public Subject addSubject(final Subject subject)
             throws SubjectException {
         try{
