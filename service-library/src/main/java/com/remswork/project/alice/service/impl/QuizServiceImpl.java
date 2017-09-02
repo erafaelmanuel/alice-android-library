@@ -262,6 +262,90 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
+    public List<Quiz> getQuizListByStudentAndSubjectId(final long studentId,
+                                                       final long subjectId,
+                                                       final long termId)
+            throws GradingFactorException {
+        final List<Quiz> quizList = new ArrayList<>();
+        try {
+            return new AsyncTask<String, List<Quiz>, List<Quiz>>() {
+                @Override
+                protected List<Quiz> doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("?studentId=")
+                                .concat(String.valueOf(studentId))
+                                .concat("&subjectId=")
+                                .concat(String.valueOf(subjectId))
+                                .concat("&termId=")
+                                .concat(String.valueOf(termId));
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
+                                quizList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Quiz.class));
+                            }
+
+                            return quizList;
+                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Quiz");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return quizList;
+                        } else
+                            throw new GradingFactorException("Server Error");
+
+                    } catch (GradingFactorException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public Quiz addQuiz(final Quiz quiz, final long studentId, final long subjectId)
             throws GradingFactorException {
         try{
@@ -279,6 +363,86 @@ public class QuizServiceImpl implements QuizService {
                                 .concat(String.valueOf(studentId))
                                 .concat("&subjectId=")
                                 .concat(String.valueOf(subjectId));
+                        Gson gson = new Gson();
+                        URL url = new URL(link);
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("POST");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+
+                        OutputStream os = httpURLConnection.getOutputStream();
+                        BufferedWriter writer =
+                                new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                        writer.write(gson.toJson(quiz));
+                        writer.flush();
+                        writer.close();
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 201) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            return gson.fromJson(jsonData, Quiz.class);
+                        } else if(httpURLConnection.getResponseCode() == 400) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Quiz");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return null;
+                        }else
+                            throw new GradingFactorException("Server Error");
+
+                    } catch (GradingFactorException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Quiz addQuiz(final Quiz quiz, final long studentId, final long subjectId,
+                        final long termId) throws GradingFactorException {
+        try{
+            return new AsyncTask<String, Quiz, Quiz>() {
+                @Override
+                protected Quiz doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("?studentId=")
+                                .concat(String.valueOf(studentId))
+                                .concat("&subjectId=")
+                                .concat(String.valueOf(subjectId))
+                                .concat("&termId=")
+                                .concat(String.valueOf(termId));
                         Gson gson = new Gson();
                         URL url = new URL(link);
                         HttpURLConnection httpURLConnection =
@@ -360,6 +524,89 @@ public class QuizServiceImpl implements QuizService {
                                 .concat(String.valueOf(studentId))
                                 .concat("&subjectId=")
                                 .concat(String.valueOf(subjectId));
+                        Gson gson = new Gson();
+                        URL url = new URL(link);
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("PUT");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+
+                        OutputStream os = httpURLConnection.getOutputStream();
+                        BufferedWriter writer =
+                                new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                        writer.write(gson.toJson(newQuiz));
+                        writer.flush();
+                        writer.close();
+                        httpURLConnection.connect();
+
+                        if(httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            return gson.fromJson(jsonData, Quiz.class);
+                        } else if(httpURLConnection.getResponseCode() == 400) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Quiz");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return null;
+                        }else
+                            throw new GradingFactorException("Server Error");
+
+                    } catch (GradingFactorException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+            return null;
+        }catch (ExecutionException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Quiz updateQuizById(final long id, final Quiz newQuiz,
+                               final long studentId, final long subjectId, final long termId)
+            throws GradingFactorException {
+        try{
+            return new AsyncTask<String, Quiz, Quiz>() {
+                @Override
+                protected Quiz doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("/")
+                                .concat(String.valueOf(id))
+                                .concat("?studentId=")
+                                .concat(String.valueOf(studentId))
+                                .concat("&subjectId=")
+                                .concat(String.valueOf(subjectId))
+                                .concat("&termId=")
+                                .concat(String.valueOf(termId));
                         Gson gson = new Gson();
                         URL url = new URL(link);
                         HttpURLConnection httpURLConnection =

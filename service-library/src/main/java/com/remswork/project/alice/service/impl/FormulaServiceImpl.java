@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.remswork.project.alice.exception.GradingFactorException;
-import com.remswork.project.alice.model.Activity;
+import com.remswork.project.alice.model.Formula;
 import com.remswork.project.alice.model.support.Message;
-import com.remswork.project.alice.service.ActivityService;
+import com.remswork.project.alice.service.FormulaService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,26 +23,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ActivityServiceImpl implements ActivityService {
+public class FormulaServiceImpl implements FormulaService {
 
     private String domain = "http://alice-rafaelmanuel.rhcloud.com";
     private String baseUri = "api";
-    private String payload = "activity";
+    private String payload = "formula";
 
-    public ActivityServiceImpl() {
+    public FormulaServiceImpl() {
         super();
     }
 
-    public ActivityServiceImpl(final String domain) {
+    public FormulaServiceImpl(final String domain) {
         this.domain = domain;
     }
 
     @Override
-    public Activity getActivityById(final long id) throws GradingFactorException {
+    public Formula getFormulaById(final long id) throws GradingFactorException {
         try {
-            return new AsyncTask<String, Activity, Activity>() {
+            return new AsyncTask<String, Formula, Formula>() {
                 @Override
-                protected Activity doInBackground(String... args) {
+                protected Formula doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -61,15 +61,15 @@ public class ActivityServiceImpl implements ActivityService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Activity.class);
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            return gson.fromJson(jsonData, Formula.class);
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -78,7 +78,7 @@ public class ActivityServiceImpl implements ActivityService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
+                            Log.i("ServiceTAG", "Service : Formula");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
@@ -95,23 +95,94 @@ public class ActivityServiceImpl implements ActivityService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    @Override
+    public Formula getFormulaBySubjectAndTeacherId(final long subjectId, final long teacherId)
+            throws GradingFactorException {
+        try {
+            return new AsyncTask<String, Formula, Formula>() {
+                @Override
+                protected Formula doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("/")
+                                .concat("0")
+                                .concat("?subjectId=")
+                                .concat(String.valueOf(subjectId))
+                                .concat("&teacherId=")
+                                .concat(String.valueOf(teacherId));
+                        URL url = new URL(link);
+                        Gson gson = new Gson();
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.connect();
+
+                        if (httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            return gson.fromJson(jsonData, Formula.class);
+                        } else if (httpURLConnection.getResponseCode() == 404) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Formula");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return null;
+                        } else
+                            throw new GradingFactorException("Server Error");
+
+                    } catch (GradingFactorException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
-    public List<Activity> getActivityList() throws GradingFactorException {
-        final List<Activity> activityList = new ArrayList<>();
+    public List<Formula> getFormulaList() throws GradingFactorException {
+        final List<Formula> formulaList = new ArrayList<>();
         try {
-            return new AsyncTask<String, List<Activity>, List<Activity>>() {
+            return new AsyncTask<String, List<Formula>, List<Formula>>() {
                 @Override
-                protected List<Activity> doInBackground(String... args) {
+                protected List<Formula> doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -128,7 +199,7 @@ public class ActivityServiceImpl implements ActivityService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -137,12 +208,12 @@ public class ActivityServiceImpl implements ActivityService {
                             }
                             JSONArray jsonArray = new JSONArray(jsonData);
                             for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
-                                activityList.add(gson.fromJson(
-                                        jsonArray.get(ctr).toString(), Activity.class));
+                                formulaList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Formula.class));
                             }
 
-                            return activityList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            return formulaList;
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -151,11 +222,11 @@ public class ActivityServiceImpl implements ActivityService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
+                            Log.i("ServiceTAG", "Service : Formula");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return activityList;
+                            return formulaList;
                         } else
                             throw new GradingFactorException("Server Error");
 
@@ -171,24 +242,23 @@ public class ActivityServiceImpl implements ActivityService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
     }
 
     @Override
-    public List<Activity> getActivityListByStudentAndSubjectId(final long studentId,
-                                                               final long subjectId)
+    public List<Formula> getFormulaListByTeacherId(final long teacherId)
             throws GradingFactorException {
-        final List<Activity> activityList = new ArrayList<>();
+        final List<Formula> formulaList = new ArrayList<>();
         try {
-            return new AsyncTask<String, List<Activity>, List<Activity>>() {
+            return new AsyncTask<String, List<Formula>, List<Formula>>() {
                 @Override
-                protected List<Activity> doInBackground(String... args) {
+                protected List<Formula> doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -196,10 +266,8 @@ public class ActivityServiceImpl implements ActivityService {
                                 .concat(baseUri)
                                 .concat("/")
                                 .concat(payload)
-                                .concat("?studentId=")
-                                .concat(String.valueOf(studentId))
-                                .concat("&subjectId=")
-                                .concat(String.valueOf(subjectId));
+                                .concat("?teacherId=")
+                                .concat(String.valueOf(teacherId));
                         URL url = new URL(link);
                         Gson gson = new Gson();
                         HttpURLConnection httpURLConnection =
@@ -209,7 +277,7 @@ public class ActivityServiceImpl implements ActivityService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -218,12 +286,12 @@ public class ActivityServiceImpl implements ActivityService {
                             }
                             JSONArray jsonArray = new JSONArray(jsonData);
                             for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
-                                activityList.add(gson.fromJson(
-                                        jsonArray.get(ctr).toString(), Activity.class));
+                                formulaList.add(gson.fromJson(
+                                        jsonArray.get(ctr).toString(), Formula.class));
                             }
 
-                            return activityList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                            return formulaList;
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -232,11 +300,11 @@ public class ActivityServiceImpl implements ActivityService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
+                            Log.i("ServiceTAG", "Service : Formula");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return activityList;
+                            return formulaList;
                         } else
                             throw new GradingFactorException("Server Error");
 
@@ -252,25 +320,22 @@ public class ActivityServiceImpl implements ActivityService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
     }
 
     @Override
-    public List<Activity> getActivityListByStudentAndSubjectId(final long studentId,
-                                                               final long subjectId,
-                                                               final long termId)
+    public Formula addFormula(final Formula formula, final long subjectId, final  long teacherId)
             throws GradingFactorException {
-        final List<Activity> activityList = new ArrayList<>();
         try {
-            return new AsyncTask<String, List<Activity>, List<Activity>>() {
+            return new AsyncTask<String, Formula, Formula>() {
                 @Override
-                protected List<Activity> doInBackground(String... args) {
+                protected Formula doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -278,91 +343,10 @@ public class ActivityServiceImpl implements ActivityService {
                                 .concat(baseUri)
                                 .concat("/")
                                 .concat(payload)
-                                .concat("?studentId=")
-                                .concat(String.valueOf(studentId))
-                                .concat("&subjectId=")
+                                .concat("?subjectId=")
                                 .concat(String.valueOf(subjectId))
-                                .concat("&termId=")
-                                .concat(String.valueOf(termId));
-                        URL url = new URL(link);
-                        Gson gson = new Gson();
-                        HttpURLConnection httpURLConnection =
-                                (HttpURLConnection) url.openConnection();
-                        httpURLConnection.setRequestMethod("GET");
-                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                        httpURLConnection.setRequestProperty("Accept", "application/json");
-                        httpURLConnection.connect();
-
-                        if(httpURLConnection.getResponseCode() == 200) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-                            JSONArray jsonArray = new JSONArray(jsonData);
-                            for (int ctr = 0; ctr < jsonArray.length(); ctr++) {
-                                activityList.add(gson.fromJson(
-                                        jsonArray.get(ctr).toString(), Activity.class));
-                            }
-
-                            return activityList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-
-                            Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
-                            Log.i("ServiceTAG", "Status : " + message.getStatus());
-                            Log.i("ServiceTAG", "Type : " + message.getType());
-                            Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return activityList;
-                        } else
-                            throw new GradingFactorException("Server Error");
-
-                    } catch (GradingFactorException e) {
-                        e.printStackTrace();
-                        return null;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }
-            }.execute((String) null).get();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-            return null;
-        }catch (ExecutionException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public Activity addActivity(final Activity activity, final long studentId, final long subjectId)
-            throws GradingFactorException {
-        try{
-            return new AsyncTask<String, Activity, Activity>() {
-                @Override
-                protected Activity doInBackground(String... args) {
-                    try {
-                        String link = ""
-                                .concat(domain)
-                                .concat("/")
-                                .concat(baseUri)
-                                .concat("/")
-                                .concat(payload)
-                                .concat("?studentId=")
-                                .concat(String.valueOf(studentId))
-                                .concat("&subjectId=")
-                                .concat(String.valueOf(subjectId));
+                                .concat("&teacherId=")
+                                .concat(String.valueOf(teacherId));
                         Gson gson = new Gson();
                         URL url = new URL(link);
                         HttpURLConnection httpURLConnection =
@@ -376,20 +360,20 @@ public class ActivityServiceImpl implements ActivityService {
                         OutputStream os = httpURLConnection.getOutputStream();
                         BufferedWriter writer =
                                 new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(activity));
+                        writer.write(gson.toJson(formula));
                         writer.flush();
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 201) {
+                        if (httpURLConnection.getResponseCode() == 201) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Activity.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                            return gson.fromJson(jsonData, Formula.class);
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -397,12 +381,12 @@ public class ActivityServiceImpl implements ActivityService {
                                 jsonData += (char) data;
                             }
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
+                            Log.i("ServiceTAG", "Service : Formula");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -414,265 +398,101 @@ public class ActivityServiceImpl implements ActivityService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public Activity addActivity(final Activity activity, final long studentId, final long subjectId,
-                                final long termId)  throws GradingFactorException {
-        try{
-            return new AsyncTask<String, Activity, Activity>() {
-                @Override
-                protected Activity doInBackground(String... args) {
-                    try {
-                        String link = ""
-                                .concat(domain)
-                                .concat("/")
-                                .concat(baseUri)
-                                .concat("/")
-                                .concat(payload)
-                                .concat("?studentId=")
-                                .concat(String.valueOf(studentId))
-                                .concat("&subjectId=")
-                                .concat(String.valueOf(subjectId))
-                                .concat("&termId=")
-                                .concat(String.valueOf(termId));
-                        Gson gson = new Gson();
-                        URL url = new URL(link);
-                        HttpURLConnection httpURLConnection =
-                                (HttpURLConnection) url.openConnection();
-                        httpURLConnection.setRequestMethod("POST");
-                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                        httpURLConnection.setRequestProperty("Accept", "application/json");
-                        httpURLConnection.setDoOutput(true);
-                        httpURLConnection.setDoInput(true);
-
-                        OutputStream os = httpURLConnection.getOutputStream();
-                        BufferedWriter writer =
-                                new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(activity));
-                        writer.flush();
-                        writer.close();
-                        httpURLConnection.connect();
-
-                        if(httpURLConnection.getResponseCode() == 201) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-                            return gson.fromJson(jsonData, Activity.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-                            Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
-                            Log.i("ServiceTAG", "Status : " + message.getStatus());
-                            Log.i("ServiceTAG", "Type : " + message.getType());
-                            Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return null;
-                        }else
-                            throw new GradingFactorException("Server Error");
-
-                    } catch (GradingFactorException e) {
-                        e.printStackTrace();
-                        return null;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }
-            }.execute((String) null).get();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-            return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
     }
 
     @Override
-    public Activity updateActivityById(final long id, final Activity newActivity,
-                                       final long studentId, final long subjectId)
-            throws GradingFactorException {
-        try{
-            return new AsyncTask<String, Activity, Activity>() {
-                @Override
-                protected Activity doInBackground(String... args) {
-                    try {
-                        String link = ""
-                                .concat(domain)
-                                .concat("/")
-                                .concat(baseUri)
-                                .concat("/")
-                                .concat(payload)
-                                .concat("/")
-                                .concat(String.valueOf(id))
-                                .concat("?studentId=")
-                                .concat(String.valueOf(studentId))
-                                .concat("&subjectId=")
-                                .concat(String.valueOf(subjectId));
-                        Gson gson = new Gson();
-                        URL url = new URL(link);
-                        HttpURLConnection httpURLConnection =
-                                (HttpURLConnection) url.openConnection();
-                        httpURLConnection.setRequestMethod("PUT");
-                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                        httpURLConnection.setRequestProperty("Accept", "application/json");
-                        httpURLConnection.setDoOutput(true);
-                        httpURLConnection.setDoInput(true);
-
-                        OutputStream os = httpURLConnection.getOutputStream();
-                        BufferedWriter writer =
-                                new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(newActivity));
-                        writer.flush();
-                        writer.close();
-                        httpURLConnection.connect();
-
-                        if(httpURLConnection.getResponseCode() == 200) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-                            return gson.fromJson(jsonData, Activity.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-                            Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
-                            Log.i("ServiceTAG", "Status : " + message.getStatus());
-                            Log.i("ServiceTAG", "Type : " + message.getType());
-                            Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return null;
-                        }else
-                            throw new GradingFactorException("Server Error");
-
-                    } catch (GradingFactorException e) {
-                        e.printStackTrace();
-                        return null;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }
-            }.execute((String) null).get();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-            return null;
-        }catch (ExecutionException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public Activity updateActivityById(final long id, final Activity newActivity,
-                                       final long studentId, final long subjectId, final long termId)
-            throws GradingFactorException {
-        try{
-            return new AsyncTask<String, Activity, Activity>() {
-                @Override
-                protected Activity doInBackground(String... args) {
-                    try {
-                        String link = ""
-                                .concat(domain)
-                                .concat("/")
-                                .concat(baseUri)
-                                .concat("/")
-                                .concat(payload)
-                                .concat("/")
-                                .concat(String.valueOf(id))
-                                .concat("?studentId=")
-                                .concat(String.valueOf(studentId))
-                                .concat("&subjectId=")
-                                .concat(String.valueOf(subjectId))
-                                .concat("&termId=")
-                                .concat(String.valueOf(termId));
-                        Gson gson = new Gson();
-                        URL url = new URL(link);
-                        HttpURLConnection httpURLConnection =
-                                (HttpURLConnection) url.openConnection();
-                        httpURLConnection.setRequestMethod("PUT");
-                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                        httpURLConnection.setRequestProperty("Accept", "application/json");
-                        httpURLConnection.setDoOutput(true);
-                        httpURLConnection.setDoInput(true);
-
-                        OutputStream os = httpURLConnection.getOutputStream();
-                        BufferedWriter writer =
-                                new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                        writer.write(gson.toJson(newActivity));
-                        writer.flush();
-                        writer.close();
-                        httpURLConnection.connect();
-
-                        if(httpURLConnection.getResponseCode() == 200) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-                            return gson.fromJson(jsonData, Activity.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
-                            InputStream inputStream = httpURLConnection.getInputStream();
-                            String jsonData = "";
-                            int data;
-                            while ((data = inputStream.read()) != -1) {
-                                jsonData += (char) data;
-                            }
-                            Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
-                            Log.i("ServiceTAG", "Status : " + message.getStatus());
-                            Log.i("ServiceTAG", "Type : " + message.getType());
-                            Log.i("ServiceTAG", "Message : " + message.getMessage());
-                            return null;
-                        }else
-                            throw new GradingFactorException("Server Error");
-
-                    } catch (GradingFactorException e) {
-                        e.printStackTrace();
-                        return null;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }
-            }.execute((String) null).get();
-        }catch (InterruptedException e){
-            e.printStackTrace();
-            return null;
-        }catch (ExecutionException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public Activity deleteActivityById(final long id) throws GradingFactorException {
+    public Formula updateFormulaById(final long id, final Formula newFormula, final long subjectId,
+                                     final long teacherId) throws GradingFactorException {
         try {
-            return new AsyncTask<String, Activity, Activity>() {
+            return new AsyncTask<String, Formula, Formula>() {
                 @Override
-                protected Activity doInBackground(String... args) {
+                protected Formula doInBackground(String... args) {
+                    try {
+                        String link = ""
+                                .concat(domain)
+                                .concat("/")
+                                .concat(baseUri)
+                                .concat("/")
+                                .concat(payload)
+                                .concat("/")
+                                .concat(String.valueOf(id))
+                                .concat("?subjectId=")
+                                .concat(String.valueOf(subjectId))
+                                .concat("&teacherId=")
+                                .concat(String.valueOf(teacherId));
+                        Gson gson = new Gson();
+                        URL url = new URL(link);
+                        HttpURLConnection httpURLConnection =
+                                (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("PUT");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+
+                        OutputStream os = httpURLConnection.getOutputStream();
+                        BufferedWriter writer =
+                                new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                        writer.write(gson.toJson(newFormula));
+                        writer.flush();
+                        writer.close();
+                        httpURLConnection.connect();
+
+                        if (httpURLConnection.getResponseCode() == 200) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            return gson.fromJson(jsonData, Formula.class);
+                        } else if (httpURLConnection.getResponseCode() == 400) {
+                            InputStream inputStream = httpURLConnection.getInputStream();
+                            String jsonData = "";
+                            int data;
+                            while ((data = inputStream.read()) != -1) {
+                                jsonData += (char) data;
+                            }
+                            Message message = gson.fromJson(jsonData, Message.class);
+                            Log.i("ServiceTAG", "Service : Formula");
+                            Log.i("ServiceTAG", "Status : " + message.getStatus());
+                            Log.i("ServiceTAG", "Type : " + message.getType());
+                            Log.i("ServiceTAG", "Message : " + message.getMessage());
+                            return null;
+                        } else
+                            throw new GradingFactorException("Server Error");
+
+                    } catch (GradingFactorException e) {
+                        e.printStackTrace();
+                        return null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }.execute((String) null).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Formula deleteFormulaById(final long id) throws GradingFactorException {
+        try {
+            return new AsyncTask<String, Formula, Formula>() {
+                @Override
+                protected Formula doInBackground(String... args) {
                     try {
                         String link = ""
                                 .concat(domain)
@@ -691,15 +511,15 @@ public class ActivityServiceImpl implements ActivityService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
                             while ((data = inputStream.read()) != -1) {
                                 jsonData += (char) data;
                             }
-                            return gson.fromJson(jsonData, Activity.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                            return gson.fromJson(jsonData, Formula.class);
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -708,7 +528,7 @@ public class ActivityServiceImpl implements ActivityService {
                             }
 
                             Message message = gson.fromJson(jsonData, Message.class);
-                            Log.i("ServiceTAG", "Service : Activity");
+                            Log.i("ServiceTAG", "Service : Formula");
                             Log.i("ServiceTAG", "Status : " + message.getStatus());
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
@@ -725,10 +545,10 @@ public class ActivityServiceImpl implements ActivityService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
