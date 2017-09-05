@@ -28,6 +28,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.github.erafaelmanuel:alice-core:ae53a329fb'
+    compile 'com.github.erafaelmanuel:alice-core:aa599f62ed'
     testCompile 'junit:junit:4.12'
 }
