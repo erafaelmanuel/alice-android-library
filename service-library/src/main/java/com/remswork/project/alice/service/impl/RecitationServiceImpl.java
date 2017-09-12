@@ -62,7 +62,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -70,7 +70,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -96,10 +96,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -129,7 +129,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -143,7 +143,7 @@ public class RecitationServiceImpl implements RecitationService {
                             }
 
                             return recitationList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -172,10 +172,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -207,7 +207,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -221,7 +221,7 @@ public class RecitationServiceImpl implements RecitationService {
                             }
 
                             return recitationList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -250,10 +250,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -287,7 +287,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -301,7 +301,7 @@ public class RecitationServiceImpl implements RecitationService {
                             }
 
                             return recitationList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -330,10 +330,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -365,7 +365,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -379,7 +379,7 @@ public class RecitationServiceImpl implements RecitationService {
                             }
 
                             return recitationList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -408,10 +408,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -445,7 +445,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -459,7 +459,7 @@ public class RecitationServiceImpl implements RecitationService {
                             }
 
                             return recitationList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -488,10 +488,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -533,7 +533,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -541,7 +541,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, RecitationResult.class);
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -567,10 +567,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -579,7 +579,7 @@ public class RecitationServiceImpl implements RecitationService {
     @Override
     public Recitation addRecitation(final Recitation recitation, final long classId)
             throws GradingFactorException {
-        try{
+        try {
             return new AsyncTask<String, Recitation, Recitation>() {
                 @Override
                 protected Recitation doInBackground(String... args) {
@@ -610,7 +610,7 @@ public class RecitationServiceImpl implements RecitationService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 201) {
+                        if (httpURLConnection.getResponseCode() == 201) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -618,7 +618,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -631,7 +631,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -643,10 +643,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -681,7 +681,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -695,7 +695,7 @@ public class RecitationServiceImpl implements RecitationService {
                             }
 
                             return recitationList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -724,10 +724,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -765,7 +765,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -779,7 +779,7 @@ public class RecitationServiceImpl implements RecitationService {
                             }
 
                             return recitationList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -808,10 +808,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -820,7 +820,7 @@ public class RecitationServiceImpl implements RecitationService {
     @Override
     public Recitation addRecitation(final Recitation recitation, final long classId, final long termId)
             throws GradingFactorException {
-        try{
+        try {
             return new AsyncTask<String, Recitation, Recitation>() {
                 @Override
                 protected Recitation doInBackground(String... args) {
@@ -853,7 +853,7 @@ public class RecitationServiceImpl implements RecitationService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 201) {
+                        if (httpURLConnection.getResponseCode() == 201) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -861,7 +861,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -874,7 +874,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -886,10 +886,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -899,7 +899,7 @@ public class RecitationServiceImpl implements RecitationService {
     public RecitationResult addRecitationResult(final int score, final long recitationId,
                                                 final long studentId)
             throws GradingFactorException {
-        try{
+        try {
             return new AsyncTask<String, RecitationResult, RecitationResult>() {
                 @Override
                 protected RecitationResult doInBackground(String... args) {
@@ -929,7 +929,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setDoInput(true);
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 201 ||
+                        if (httpURLConnection.getResponseCode() == 201 ||
                                 httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -938,7 +938,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, RecitationResult.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -951,7 +951,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -963,10 +963,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -976,7 +976,7 @@ public class RecitationServiceImpl implements RecitationService {
     public Recitation updateRecitationById(final long id, final Recitation newRecitation,
                                            final long classId)
             throws GradingFactorException {
-        try{
+        try {
             return new AsyncTask<String, Recitation, Recitation>() {
                 @Override
                 protected Recitation doInBackground(String... args) {
@@ -1009,7 +1009,7 @@ public class RecitationServiceImpl implements RecitationService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1017,7 +1017,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1030,7 +1030,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -1042,10 +1042,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1053,8 +1053,8 @@ public class RecitationServiceImpl implements RecitationService {
 
     @Deprecated
     public Recitation addRecitation(final Recitation recitation, final long studentId, final long subjectId,
-                                    final long termId)  throws GradingFactorException {
-        try{
+                                    final long termId) throws GradingFactorException {
+        try {
             return new AsyncTask<String, Recitation, Recitation>() {
                 @Override
                 protected Recitation doInBackground(String... args) {
@@ -1089,7 +1089,7 @@ public class RecitationServiceImpl implements RecitationService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 201) {
+                        if (httpURLConnection.getResponseCode() == 201) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1097,7 +1097,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1110,7 +1110,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -1122,10 +1122,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1135,7 +1135,7 @@ public class RecitationServiceImpl implements RecitationService {
     public Recitation updateRecitationById(final long id, final Recitation newRecitation,
                                            final long classId, final long termId)
             throws GradingFactorException {
-        try{
+        try {
             return new AsyncTask<String, Recitation, Recitation>() {
                 @Override
                 protected Recitation doInBackground(String... args) {
@@ -1170,7 +1170,7 @@ public class RecitationServiceImpl implements RecitationService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1178,7 +1178,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1191,7 +1191,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -1203,10 +1203,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1217,7 +1217,7 @@ public class RecitationServiceImpl implements RecitationService {
                                                                            final long recitationId,
                                                                            final long studentId)
             throws GradingFactorException {
-        try{
+        try {
             return new AsyncTask<String, RecitationResult, RecitationResult>() {
                 @Override
                 protected RecitationResult doInBackground(String... args) {
@@ -1247,7 +1247,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setDoInput(true);
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1255,7 +1255,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, RecitationResult.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1268,7 +1268,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -1280,10 +1280,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1293,7 +1293,7 @@ public class RecitationServiceImpl implements RecitationService {
     public Recitation updateRecitationById(final long id, final Recitation newRecitation,
                                            final long studentId, final long subjectId, final long termId)
             throws GradingFactorException {
-        try{
+        try {
             return new AsyncTask<String, Recitation, Recitation>() {
                 @Override
                 protected Recitation doInBackground(String... args) {
@@ -1330,7 +1330,7 @@ public class RecitationServiceImpl implements RecitationService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1338,7 +1338,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1351,7 +1351,7 @@ public class RecitationServiceImpl implements RecitationService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new GradingFactorException("Server Error");
 
                     } catch (GradingFactorException e) {
@@ -1363,10 +1363,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1396,7 +1396,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1404,7 +1404,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Recitation.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1430,10 +1430,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1469,7 +1469,7 @@ public class RecitationServiceImpl implements RecitationService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1477,7 +1477,7 @@ public class RecitationServiceImpl implements RecitationService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, RecitationResult.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1503,10 +1503,10 @@ public class RecitationServiceImpl implements RecitationService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
