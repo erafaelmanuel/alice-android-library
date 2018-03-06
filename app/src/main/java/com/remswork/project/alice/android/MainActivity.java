@@ -21,6 +21,12 @@ import com.remswork.project.alice.service.impl.StudentServiceImpl;
 import com.remswork.project.alice.service.impl.SubjectServiceImpl;
 import com.remswork.project.alice.service.impl.TeacherServiceImpl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
 import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
 //            formula.setExamPercentage(100);
 //            Log.i("mtAG", formulaService.updateFormulaById(110, formula, 0, 0, 0).getSubject().getName());
 
-            TeacherServiceImpl teacherService = new TeacherServiceImpl();
-            for (Teacher teacher : teacherService.getTeacherList()) {
-                Log.i("YourTag", teacher.getFirstName());
-            }
+//            TeacherServiceImpl teacherService = new TeacherServiceImpl();
+//            for (Teacher teacher : teacherService.getTeacherList()) {
+//                Log.i("YourTag", teacher.getFirstName());
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
