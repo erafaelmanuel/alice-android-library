@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class TeacherServiceImpl implements TeacherService {
+public class TeacherServiceImpl implements TeacherService, IP {
 
-    private String baseUri = "http://192.168.0.104:8080/api";
+    private String baseUri = DOMAIN + "/api";
     private String teacherServiceUri = "/teacher";
 
     public TeacherServiceImpl() {

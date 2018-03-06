@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl implements ProjectService, IP {
 
-    private String domain = "http://192.168.0.104:8080";
+    private String domain = DOMAIN;
     private String baseUri = "api";
     private String payload = "project";
 

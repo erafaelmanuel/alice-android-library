@@ -27,9 +27,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-public class ClassServiceImpl implements ClassService {
+public class ClassServiceImpl implements ClassService, IP {
 
-    private String domain = "http://192.168.0.104:8080";
+    private String domain = DOMAIN;
     private String baseUri = "api";
     private String payload = "class";
 
@@ -65,7 +65,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -73,7 +73,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Class.class);
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -99,10 +99,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -131,7 +131,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -145,7 +145,7 @@ public class ClassServiceImpl implements ClassService {
                             }
 
                             return _classList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -174,10 +174,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -208,7 +208,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -222,7 +222,7 @@ public class ClassServiceImpl implements ClassService {
                             }
 
                             return _classList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -251,10 +251,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -285,7 +285,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -299,7 +299,7 @@ public class ClassServiceImpl implements ClassService {
                             }
 
                             return _classList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -328,10 +328,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -362,7 +362,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -376,7 +376,7 @@ public class ClassServiceImpl implements ClassService {
                             }
 
                             return _classList;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -405,10 +405,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -442,7 +442,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -450,7 +450,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Schedule.class);
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -476,10 +476,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -512,7 +512,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -526,7 +526,7 @@ public class ClassServiceImpl implements ClassService {
                             }
 
                             return scheduleSet;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -555,10 +555,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -593,7 +593,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -601,7 +601,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Student.class);
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -627,10 +627,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -664,7 +664,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -678,7 +678,7 @@ public class ClassServiceImpl implements ClassService {
                             }
 
                             return studentSet;
-                        } else if(httpURLConnection.getResponseCode() == 404) {
+                        } else if (httpURLConnection.getResponseCode() == 404) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -707,10 +707,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -719,7 +719,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public Class addClass(final Class _class, final long teacherId, final long subjectId,
                           final long sectionId) throws ClassException {
-        try{
+        try {
             return new AsyncTask<String, Class, Class>() {
                 @Override
                 protected Class doInBackground(String... args) {
@@ -754,7 +754,7 @@ public class ClassServiceImpl implements ClassService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200 ||
+                        if (httpURLConnection.getResponseCode() == 200 ||
                                 httpURLConnection.getResponseCode() == 201) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -763,7 +763,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Class.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -776,7 +776,7 @@ public class ClassServiceImpl implements ClassService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new ClassException("Server Error");
 
                     } catch (ClassException e) {
@@ -788,10 +788,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -800,7 +800,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public Schedule addScheduleById(final long classId, final long scheduleId)
             throws ClassException {
-        try{
+        try {
             return new AsyncTask<String, Schedule, Schedule>() {
                 @Override
                 protected Schedule doInBackground(String... args) {
@@ -828,7 +828,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setDoInput(true);
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200 ||
+                        if (httpURLConnection.getResponseCode() == 200 ||
                                 httpURLConnection.getResponseCode() == 201) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -837,7 +837,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Schedule.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -850,7 +850,7 @@ public class ClassServiceImpl implements ClassService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new ClassException("Server Error");
 
                     } catch (ClassException e) {
@@ -862,10 +862,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -874,7 +874,7 @@ public class ClassServiceImpl implements ClassService {
     @Deprecated
     @Override
     public Student addStudentById(final long classId, final long id) throws ClassException {
-        try{
+        try {
             return new AsyncTask<String, Student, Student>() {
                 @Override
                 protected Student doInBackground(String... args) {
@@ -902,7 +902,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setDoInput(true);
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200 ||
+                        if (httpURLConnection.getResponseCode() == 200 ||
                                 httpURLConnection.getResponseCode() == 201) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
@@ -911,7 +911,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Student.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -924,7 +924,7 @@ public class ClassServiceImpl implements ClassService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new ClassException("Server Error");
 
                     } catch (ClassException e) {
@@ -936,10 +936,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -949,7 +949,7 @@ public class ClassServiceImpl implements ClassService {
     public Class updateClassById(final long id, final Class newClass,
                                  final long teacherId, final long subjectId,
                                  final long sectionId) throws ClassException {
-        try{
+        try {
             return new AsyncTask<String, Class, Class>() {
                 @Override
                 protected Class doInBackground(String... args) {
@@ -986,7 +986,7 @@ public class ClassServiceImpl implements ClassService {
                         writer.close();
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -994,7 +994,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Class.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1007,7 +1007,7 @@ public class ClassServiceImpl implements ClassService {
                             Log.i("ServiceTAG", "Type : " + message.getType());
                             Log.i("ServiceTAG", "Message : " + message.getMessage());
                             return null;
-                        }else
+                        } else
                             throw new ClassException("Server Error");
 
                     } catch (ClassException e) {
@@ -1019,10 +1019,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1052,7 +1052,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1060,7 +1060,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Class.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1086,10 +1086,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1123,7 +1123,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1131,7 +1131,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Schedule.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1157,10 +1157,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }
@@ -1195,7 +1195,7 @@ public class ClassServiceImpl implements ClassService {
                         httpURLConnection.setRequestProperty("Accept", "application/json");
                         httpURLConnection.connect();
 
-                        if(httpURLConnection.getResponseCode() == 200) {
+                        if (httpURLConnection.getResponseCode() == 200) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1203,7 +1203,7 @@ public class ClassServiceImpl implements ClassService {
                                 jsonData += (char) data;
                             }
                             return gson.fromJson(jsonData, Student.class);
-                        } else if(httpURLConnection.getResponseCode() == 400) {
+                        } else if (httpURLConnection.getResponseCode() == 400) {
                             InputStream inputStream = httpURLConnection.getInputStream();
                             String jsonData = "";
                             int data;
@@ -1229,10 +1229,10 @@ public class ClassServiceImpl implements ClassService {
                     }
                 }
             }.execute((String) null).get();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return null;
-        }catch (ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
         }

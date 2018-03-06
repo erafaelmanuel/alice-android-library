@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class TermServiceImpl implements TermService {
+public class TermServiceImpl implements TermService, IP {
 
-    private String domain = "http://192.168.0.104:8080";
+    private String domain = DOMAIN;
     private String baseUri = "api";
     private String payload = "term";
 
