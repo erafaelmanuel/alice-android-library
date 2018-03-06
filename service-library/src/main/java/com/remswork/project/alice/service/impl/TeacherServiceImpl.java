@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class TeacherServiceImpl implements TeacherService {
 
-    private String baseUri = "http://alice-rafaelmanuel.rhcloud.com/api";
+    private String baseUri = "http://192.168.0.104:8080/api";
     private String teacherServiceUri = "/teacher";
 
     public TeacherServiceImpl() {

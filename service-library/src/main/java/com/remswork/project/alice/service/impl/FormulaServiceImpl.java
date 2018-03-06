@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class FormulaServiceImpl implements FormulaService {
 
-    private String domain = "http://alice-rafaelmanuel.rhcloud.com";
+    private String domain = "http://192.168.0.104:8080";
     private String baseUri = "api";
     private String payload = "formula";
 

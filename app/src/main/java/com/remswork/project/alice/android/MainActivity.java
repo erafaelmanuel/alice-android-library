@@ -9,6 +9,7 @@ import com.remswork.project.alice.model.Assignment;
 import com.remswork.project.alice.model.AssignmentResult;
 import com.remswork.project.alice.model.Formula;
 import com.remswork.project.alice.model.Grade;
+import com.remswork.project.alice.model.Teacher;
 import com.remswork.project.alice.service.ActivityService;
 import com.remswork.project.alice.service.AssignmentService;
 import com.remswork.project.alice.service.GradeService;
@@ -18,6 +19,7 @@ import com.remswork.project.alice.service.impl.FormulaServiceImpl;
 import com.remswork.project.alice.service.impl.GradeServiceImpl;
 import com.remswork.project.alice.service.impl.StudentServiceImpl;
 import com.remswork.project.alice.service.impl.SubjectServiceImpl;
+import com.remswork.project.alice.service.impl.TeacherServiceImpl;
 
 import static android.R.attr.id;
 
@@ -54,12 +56,16 @@ public class MainActivity extends AppCompatActivity {
 //            AssignmentResult result = assignmentService.getAssignmentResultByAssignmentAndStudentId(499, 20170010);
             //AssignmentResult result = assignmentService.addAssignmentResult(70, 499, 20170010);
             //Log.i("MAINTAG", result + "");
-            new GradeServiceImpl().updateGrade(1268, new Grade(95D),0, 428, 2);
-            FormulaServiceImpl formulaService = new FormulaServiceImpl();
-            Formula formula = formulaService.getFormulaById(110);
-            formula.setExamPercentage(100);
-            Log.i("mtAG", formulaService.updateFormulaById(110, formula, 0, 0, 0).getSubject().getName());
+//            new GradeServiceImpl().updateGrade(1268, new Grade(),0, 428, 2);
+//            FormulaServiceImpl formulaService = new FormulaServiceImpl();
+//            Formula formula = formulaService.getFormulaById(110);
+//            formula.setExamPercentage(100);
+//            Log.i("mtAG", formulaService.updateFormulaById(110, formula, 0, 0, 0).getSubject().getName());
 
+            TeacherServiceImpl teacherService = new TeacherServiceImpl();
+            for (Teacher teacher : teacherService.getTeacherList()) {
+                Log.i("YourTag", teacher.getFirstName());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
